@@ -7,7 +7,7 @@ import { createUser, getUserByEmail, isUserExistsWith } from "./database/dal";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
-export async function register(formData: FormData) {
+export async function register(previousState: any, formData: FormData) {
   console.log(formData);
 
   const User = z.object({
@@ -27,14 +27,12 @@ export async function register(formData: FormData) {
   });
   if (!result.success) {
     console.log(result.error.message);
-    //revalidatePath("/register");
-    //zod error
-    return; // { error: "Entries not validated." };
+    return "Entries not valid.";
   }
-  console.log("No errors!\n");
+  console.log("No errors!");
   const user = result.data;
   const isDublicate = await isUserExistsWith(user.email); // this can throw an error
-  if (isDublicate) return; //{ error: "A user already exists with this email." }; // we need to handle this correctly
+  if (isDublicate) return "A user already exists with this email.";
   const refreshToken = jwt.sign(
     {
       email: user.email,
@@ -50,7 +48,7 @@ export async function register(formData: FormData) {
     await createUser({ ...user, password: hashedPassword });
   } catch (err: any) {
     console.error(err.message);
-    return; // { error: err.message };
+    return "Could not create user. Try again!";
   }
 
   const cookieStore = await cookies();
@@ -65,7 +63,7 @@ export async function register(formData: FormData) {
   redirect(`/${user.userType}`);
 }
 
-export async function login(formData: FormData) {
+export async function login(previousState: any, formData: FormData) {
   console.log(formData);
 
   const User = z.object({
@@ -80,29 +78,27 @@ export async function login(formData: FormData) {
 
   if (!result.success) {
     console.log(result.error.message);
-    //revalidatePath("/register");
-    //zod error
-    return; // { error: "Entries not validated." };
+    return "Entries not valid.";
   }
-  console.log("No errors!\n");
+  console.log("No errors!");
   const user = result.data;
   let userInDb;
   try {
     userInDb = await getUserByEmail(user.email);
   } catch (err: any) {
     console.error(err.message);
-    return; //return the error here
+    return "Could not search for users. Try again!";
   }
 
   if (!userInDb) {
     console.error("No user with this email.");
-    return; // return an error to the user
+    return "No users with this email.";
   }
 
   const isPasswordCorrect = await bcrypt.compare(user.password, userInDb.password);
   if (!isPasswordCorrect) {
     console.error("Password incorrect.");
-    return; // return an error to the user
+    return "Password incorrect.";
   }
 
   const refreshToken = jwt.sign(
