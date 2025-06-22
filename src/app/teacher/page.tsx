@@ -1,7 +1,8 @@
-import { verifyRefreshToken } from "@/lib/utils";
+import { verifyRefreshToken, verifyRoles } from "@/lib/utils";
 
 export default async function Page() {
   await verifyRefreshToken();
+  await verifyRoles(["teacher"]);
   return (
     <main>
       <h1>Teacher Page</h1>

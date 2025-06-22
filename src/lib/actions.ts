@@ -108,7 +108,7 @@ export async function login(formData: FormData) {
   const refreshToken = jwt.sign(
     {
       email: userInDb.email,
-      role: userInDb.userType,
+      role: userInDb.user_type,
     },
     process.env.REFRESH_TOKEN_SECRET!,
     { expiresIn: "1m" }
