@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Link from "next/link";
-import { signOut } from "@/lib/actions";
+import NavBar from "@/ui/layout/navBar";
 
 export const metadata: Metadata = {
   title: "Learing Auth",
@@ -16,18 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <aside>
-          <nav>
-            <Link href="/">Home Page</Link>
-            <Link href="/student">Student Page</Link>
-            <Link href="teacher">Teacher Page</Link>
-          </nav>
-          <nav>
-            <Link href="register">Register</Link>
-            <Link href="login">Login</Link>
-            <button onClick={signOut}>Sign Out</button>
-          </nav>
-        </aside>
+        <NavBar />
         {children}
       </body>
     </html>
