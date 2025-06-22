@@ -13,17 +13,23 @@ export async function getPostgresVersion() {
 
 export async function initializeDataBase() {
   try {
-    const result = await query(
+    const result1 = await query(
+      `CREATE TYPE userType as ENUM('student', 'teacher')
+      `,
+      []
+    );
+    const result2 = await query(
       `CREATE TABLE USERS(
       id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
       first_name VARCHAR(30),
       last_name VARCHAR(30),
+      user_type userType,
       email VARCHAR(80) UNIQUE NOT NULL,
       password VARCHAR(60) NOT NULL
       )`,
       []
     );
-    return result;
+    return [result1, result2];
   } catch (err: any) {
     console.error(err.message);
     throw new Error("Could not initialize database.");
