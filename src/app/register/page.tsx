@@ -1,15 +1,16 @@
+import { register } from "@/lib/actions";
+
 export default function Page() {
   return (
     <main>
       <h1>Register Page</h1>
-      <form action="">
+      <form action={register}>
         <div>
           <label htmlFor="first-name">First Name:</label>
           <input
             type="text"
             name="firstName"
             id="first-name"
-            required
           />
         </div>
         <div>
@@ -18,8 +19,26 @@ export default function Page() {
             type="text"
             name="lastName"
             id="last-name"
-            required
           />
+        </div>
+        <div>
+          <label>User Type:</label>
+          <div>
+            <label htmlFor="user-type-student">Student</label>
+            <input
+              type="radio"
+              name="userType"
+              id="user-type-student"
+              value="student"
+            />
+            <label htmlFor="user-type-teacher">Teacher</label>
+            <input
+              type="radio"
+              name="userType"
+              id="user-type-teacher"
+              value="teacher"
+            />
+          </div>
         </div>
         <div>
           <label htmlFor="email">Email:</label>
@@ -27,7 +46,6 @@ export default function Page() {
             type="email"
             name="email"
             id="email"
-            required
           />
         </div>
         <div>
@@ -36,7 +54,6 @@ export default function Page() {
             type="password"
             name="password"
             id="password"
-            required
           />
         </div>
         <div>

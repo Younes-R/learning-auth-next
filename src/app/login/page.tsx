@@ -1,8 +1,10 @@
+import { login } from "@/lib/actions";
+
 export default function Page() {
   return (
     <main>
       <h1>Login Page</h1>
-      <form action="">
+      <form action={login}>
         <div>
           <label htmlFor="email">Email:</label>
           <input

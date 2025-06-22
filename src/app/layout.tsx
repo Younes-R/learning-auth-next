@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Link from "next/link";
+import { signOut } from "@/lib/actions";
 
 export const metadata: Metadata = {
   title: "Learing Auth",
@@ -24,7 +25,7 @@ export default function RootLayout({
           <nav>
             <Link href="register">Register</Link>
             <Link href="login">Login</Link>
-            <button>Sign Out</button>
+            <button onClick={signOut}>Sign Out</button>
           </nav>
         </aside>
         {children}

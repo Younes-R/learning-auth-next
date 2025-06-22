@@ -1,4 +1,7 @@
-export default function Page() {
+import { verifyRefreshToken } from "@/lib/utils";
+
+export default async function Page() {
+  await verifyRefreshToken();
   return (
     <main>
       <h1>Teacher Page</h1>
