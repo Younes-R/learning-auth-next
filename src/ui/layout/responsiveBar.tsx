@@ -19,19 +19,32 @@ function useWindowWidth() {
 }
 
 export function ResponsiveBar(props: { payload: any; role: string }) {
-  const [isToggled, setIsToggled] = useState(false);
+  const [isToggled, setIsToggled] = useState(typeof window !== "undefined" ? window.innerWidth < 768 : false);
+  const [isMounted, setIsMounted] = useState(false);
   const pathname = usePathname();
   const width = useWindowWidth();
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   useEffect(() => {
     if (width > 768) {
       setIsToggled(true);
     } else {
       setIsToggled(false);
     }
-  }, [width]);
-  useEffect(() => {
-    setIsToggled(false);
-  }, [pathname]);
+  }, [pathname, width]);
+
+  //   useEffect(() => {
+  //     if (width > 768) {
+  //       setIsToggled(true);
+  //     } else {
+  //       setIsToggled(false);
+  //     }
+  //   }, [width]);
+
+  if (!isMounted) return null;
   return (
     <>
       <span>
