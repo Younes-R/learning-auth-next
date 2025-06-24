@@ -25,7 +25,13 @@ export default function LoginForm() {
           required
         />
       </div>
-      <div>
+      <div
+        style={{
+          // backgroundColor: "green",
+          justifyContent: "flex-end",
+          gap: "1em",
+        }}
+      >
         <button type="submit">Login</button>
         <button type="reset">Reset</button>
       </div>

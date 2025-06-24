@@ -58,7 +58,13 @@ export default function RegisterForm() {
           id="password"
         />
       </div>
-      <div>
+      <div
+        style={{
+          // backgroundColor: "gold",
+          justifyContent: "flex-end",
+          gap: "1em",
+        }}
+      >
         <button type="submit">Register</button>
         <button type="reset">Reset</button>
       </div>

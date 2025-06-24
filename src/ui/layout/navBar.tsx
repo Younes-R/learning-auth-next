@@ -1,7 +1,6 @@
-import Link from "next/link";
-import { signOut } from "@/lib/actions";
 import { cookies } from "next/headers";
 import * as jwt from "jsonwebtoken";
+import { ResponsiveBar } from "./responsiveBar";
 
 export default async function NavBar() {
   const cookieStore = await cookies();
@@ -15,18 +14,9 @@ export default async function NavBar() {
   const role = payload?.role;
 
   return (
-    <aside>
-      <nav>
-        {payload ? <span style={{ borderBottom: "2px solid #333" }}>{`Hello, ${payload.email} !`}</span> : null}
-        <Link href="/">Home Page</Link>
-        {payload && role === "student" ? <Link href="/student">Student Page</Link> : null}
-        {payload && role === "teacher" ? <Link href="teacher">Teacher Page</Link> : null}
-      </nav>
-      <nav>
-        {payload ? null : <Link href="register">Register</Link>}
-        {payload ? null : <Link href="login">Login</Link>}
-        {payload ? <button onClick={signOut}>Sign Out</button> : null}
-      </nav>
-    </aside>
+    <ResponsiveBar
+      payload={payload}
+      role={role}
+    />
   );
 }

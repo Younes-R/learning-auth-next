@@ -7,7 +7,13 @@ export default async function Page() {
   return (
     <main>
       <h1>Student Page</h1>
-      <p>This is a protected page: you need to be authenticated + have access right to get this page.</p>
+      <p
+        style={{
+          padding: "1em 3em",
+        }}
+      >
+        This is a protected page: you need to be authenticated + have access right to get this page.
+      </p>
     </main>
   );
 }
